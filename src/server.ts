@@ -1,6 +1,7 @@
 // required packages
 import express from 'express';
 import cors from 'cors';
+import spotifyAuthRoutes from './routes/spotifyAuthRoutes';
 
 const app = express();
 
@@ -8,6 +9,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/api/spotify', spotifyAuthRoutes);
 
 app.get('/', (_req, res) => {
   res.status(200).send('Welcome to the PicMySong server!');

@@ -1,7 +1,11 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      PORT?: string;
+      PORT: string,
+      SPOTIFY_CLIENT_ID: string,
+      SPOTIFY_CLIENT_SECRET: string,
+      REDIRECT_URI: string,
+      CLIENT_REDIRECT_URI: string
     }
   }
 }
