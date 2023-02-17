@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
+import axios from 'axios';
 import querystring from 'querystring';
 
 const router = express.Router();
@@ -60,20 +61,25 @@ router.get('/callback', (req, res) => {
   } else {
     res.clearCookie(stateKey);
     const authOptions = {
+      method: 'post',
       url: 'https://accounts.spotify.com/api/token',
-      form: {
+      data: {
         code: code,
         redirect_uri: process.env.REDIRECT_URI,
         grant_type: 'authorization_code'
       },
       headers: {
-        'Authorization': 'Basic' + (Buffer.from(process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET).toString('base64'))
+        'Authorization': 'Basic' + (Buffer.from(process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET).toString('base64')),
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
-      json: true
     };
+
+    await axios.post(authOptions, (error, response, body) => {
+
+    });
   }
 
-  
+
 
 });
 
