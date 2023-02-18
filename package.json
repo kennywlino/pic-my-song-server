@@ -29,6 +29,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@aws-sdk/client-rekognition": "^3.272.0",
     "@types/cors": "^2.8.13",
     "axios": "^1.3.2",
     "cors": "^2.8.5",
