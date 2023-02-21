@@ -1,24 +1,29 @@
+import dotenv from 'dotenv';
+dotenv.config()
 import fs from 'fs';
 
-// import { RekognitionClient, DetectLabelsCommand } from "@aws-sdk/client-rekognition";
+import { RekognitionClient, DetectLabelsCommand } from "@aws-sdk/client-rekognition";
 
-// const client = new RekognitionClient({ region: "us-west-2"});
+const REGION = 'us-west-2';
+
+// AWS credentials are read from env automatically
+const client = new RekognitionClient({ region: REGION });
 
 // (curr) input: image path as string
 // output: ArrayBuffer
-const load = (imgPath) => {
-  fs.readFile(imgPath, (err, data) => {
-    if (err) {
-      throw err;
-    }
+const load = async (imgPath) => {
+  try {
+    const data = await fs.promises.readFile(imgPath, 'base64');
 
     // gives us a Buffer needed for AWS;
     // AWS wants a Uint8Array and "Buffer instances are also JavaScript Uint8Array and TypedArray instances"
     // https://nodejs.org/api/buffer.html#buffer
-    const buffer = Buffer.from(data, 'utf-8');
-    console.log('buffer inside load', buffer);
+    
+    const buffer = Buffer.from(data, 'base64');
     return buffer;
-  });
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 // input: image in base-64 format
@@ -42,5 +47,6 @@ const getLabels = async (imgBuffer) => {
 
 const path = "/Users/kennywlino/Downloads/test.jpeg";
 
-let testBuffer = load(path);
-console.log('testBuffer:', testBuffer);
+let testBuffer = await load(path);
+let labelData = await getLabels(testBuffer);
+console.log(labelData);
