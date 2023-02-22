@@ -6,7 +6,7 @@ import querystring from 'querystring';
 const router = express.Router();
 
 // used to generate a value for state within the /login route
-const generateRandomString = (length: number) => {
+const generateRandomString = (length) => {
   let text = '';
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -23,7 +23,7 @@ const stateKey = 'spotify_auth_state';
 
 // redirects user to authorize this app via Spotify
 // with the listed scopes
-router.get('/login', (_req, res) => {
+router.get('/login', (req, res) => {
 
   const state = generateRandomString(16);
 
@@ -51,7 +51,7 @@ router.get('/login', (_req, res) => {
 router.get('/callback', (req, res) => {
   const code = req.query.code || null;
   const state = req.query.state || null;
-  const storedState: string | unknown = req.cookies ? req.cookies[stateKey] : null;
+  const storedState = req.cookies ? req.cookies[stateKey] : null;
 
   if (state === null || state !== storedState) {
     res.redirect('/#' +

@@ -1,6 +1,7 @@
 // required packages
 import express from 'express';
 import cors from 'cors';
+import awsRekognitionRoute from './routes/awsRekognitionRoute';
 import spotifyAuthRoutes from './routes/spotifyAuthRoutes';
 
 const app = express();
@@ -10,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/process-image', awsRekognitionRoute);
 app.use('/api/spotify', spotifyAuthRoutes);
 
 app.get('/', (_req, res) => {
@@ -21,7 +23,7 @@ app.get('*', (_req, res) => {
   res.status(404).send('Not available');
 });
 
-export const start = (port: number | string) => {
+export const start = (port) => {
   if (!port) throw new Error ('No port provided.');
   app.listen(port, () => console.log(`Listening on ${port}`));
 };
