@@ -6,7 +6,7 @@ import { RekognitionClient, DetectLabelsCommand } from "@aws-sdk/client-rekognit
 
 // Multer needs a location to upload images;
 // integrate this with Cloudinary when ready
-const upload = multer({ dest: "uploads/" })
+const upload = multer();
 
 dotenv.config()
 
@@ -18,7 +18,7 @@ const REGION = 'us-west-2';
 // so no need to specify with process.env
 const client = new RekognitionClient({ region: REGION });
 
-router.post('/get-songs', upload.single("img"), getSongs);
+// router.post('/get-songs', upload.single("img"), getSongs);
 
 const getSongs = (req, res) => {
   console.log(req.body);
@@ -63,10 +63,10 @@ const getLabels = async (imgBuffer) => {
   }
 };
 
-const path = "/Users/kennywlino/Downloads/test.jpeg";
+// const path = "/Users/kennywlino/Downloads/test.jpeg";
 
-let testBuffer = await load(path);
-let labelData = await getLabels(testBuffer);
-console.log(labelData);
+// let testBuffer = await load(path);
+// let labelData = await getLabels(testBuffer);
+// console.log(labelData);
 
 export default router;

@@ -1,8 +1,8 @@
 // required packages
 import express from 'express';
 import cors from 'cors';
-import awsRekognitionRoute from './routes/awsRekognitionRoute';
-import spotifyAuthRoutes from './routes/spotifyAuthRoutes';
+import awsRekognitionRoute from './routes/awsRekognitionRoute.js';
+// import spotifyAuthRoutes from './routes/spotifyAuthRoutes.js';
 
 const app = express();
 
@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/process-image', awsRekognitionRoute);
-app.use('/api/spotify', spotifyAuthRoutes);
+// app.use('/api/spotify', spotifyAuthRoutes);
 
 app.get('/', (_req, res) => {
   res.status(200).send('Welcome to the PicMySong server!');
