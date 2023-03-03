@@ -22,17 +22,21 @@ const client = new RekognitionClient({ region: REGION });
 router.post('/get-songs', upload.single("img"), getSongs);
 
 async function getSongs(req, res) {
-  //let labelData = await getLabels(req.file.buffer);
-  let results = await searchSpotify('jeans');
-  console.log(results);
-  console.log('---------END OF RESULTS---------');
-  results.albums.items.map(item => console.log(item));
-  console.log('-------END OF ALBUMS-----------');
-  results.artists.items.map(item => console.log(item));
-  console.log('--------END OF ARTISTS----------');
-  results.tracks.items.map(item => console.log(item));
-  // results.map(item => item.items.map(obj => console.log(obj))); 
-};
+  try {
+    //let labelData = await getLabels(req.file.buffer);
+    let results = await searchSpotify('jeans');
+    // console.log(results);
+    // console.log('---------END OF RESULTS---------');
+    // results.albums.items.map(item => console.log(item));
+    // console.log('-------END OF ALBUMS-----------');
+    // results.artists.items.map(item => console.log(item));
+    // console.log('--------END OF ARTISTS----------');
+    // results.tracks.items.map(item => console.log(item));
+    res.status(200).send(results);
+  } catch(error) {
+    console.error(error);
+  };
+}
 
 /**
  * Loads an image from path or URL. 
