@@ -54,3 +54,23 @@ function processLabelData(data) {
   });
   return Array.from(labels);
 }
+
+/**
+ * 
+ * @param {*} labels in a flat array; from processLabelData
+ * @param {*} count how many random labels to get
+ * @returns {Array} selected ; {count} selected labels
+ */
+export function getRandomLabels(labels, count) {
+  if (count > labels.length) {
+    throw new Error("Count cannot be larger than the length of the array");
+  }
+  const selectedLabels = [];
+  const labelsCopy = labels.slice();
+  for (let i = 0; i < count; i++) {
+    const randomIndex = Math.floor(Math.random() * labelsCopy.length);
+    selectedLabels.push(labelsCopy[randomIndex]);
+    labelsCopy.splice(randomIndex, 1);
+  }
+  return selectedLabels;
+}

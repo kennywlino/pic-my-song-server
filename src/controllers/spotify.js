@@ -1,3 +1,7 @@
+
+import axios from 'axios';
+import qs from 'qs';
+
 async function getSpotifyAuthorization() {
   try {
     const auth_token = Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`, 'utf-8').toString('base64');
@@ -22,10 +26,11 @@ async function getSpotifyAuthorization() {
  * @param {string} query 
  * @returns {Array} array of matching songs
  */
-async function searchSpotify(query) {
+export async function searchSpotify(query) {
   let accessToken = await getSpotifyAuthorization();
 
-  const search_url = `https://api.spotify.com/v1/search?q=${query}&type=track,album,artist&limit=10`;
+  //const search_url = `https://api.spotify.com/v1/search?q=${query}&type=track,album,artist&limit=10`;
+  const search_url = `https://api.spotify.com/v1/search?q=${query}&type=track&limit=10`;
 
   try { 
     const res = await axios.get(search_url, {
