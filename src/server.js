@@ -1,7 +1,7 @@
 // required packages
 import express from 'express';
 import cors from 'cors';
-import awsRekognitionRoute from './routes/awsRekognition.js';
+import getSongs from './routes/getSongs.js';
 // import spotifyAuthRoutes from './routes/spotifyAuthRoutes.js';
 
 const app = express();
@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/aws-rekognition', awsRekognitionRoute);
+app.use(getSongs);
 // app.use('/api/spotify', spotifyAuthRoutes);
 
 app.get('/', (_req, res) => {

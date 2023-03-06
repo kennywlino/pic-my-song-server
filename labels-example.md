@@ -1,3 +1,18 @@
+## Filtered
+
+### With labels, aliases, categories, and parents
+```
+[
+  "Corrosion",
+  "Damage Detection",
+  "Rust",
+  "Mace Club",
+  "Weapons and Military",
+  "Weapon",
+  "Weaponry"
+]
+```
+## Unfiltered
 ```
 {
   '$metadata': {
