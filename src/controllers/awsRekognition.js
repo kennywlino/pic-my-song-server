@@ -39,7 +39,6 @@ export async function getLabels(imgBuffer) {
  */
 function processLabelData(data) {
   let labels = new Set();
-  console.log(data);
   data.Labels.map(label => {
     labels.add(label.Name)
     if (label.Aliases) {

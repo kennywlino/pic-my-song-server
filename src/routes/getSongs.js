@@ -18,6 +18,10 @@ export async function getSongs(req, res) {
     const labels = await getLabels(image);
     const randomLabels = getRandomLabels(labels, 1);
 
+    console.log("LABELS: ", labels);
+    console.log("RANDOM LABELS: ");
+    randomLabels.forEach(label => console.log(label));
+
     const resultsPromises = randomLabels.map(async label => {
       const searchResults = await searchSpotify(label);
       return searchResults;
