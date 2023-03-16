@@ -1,7 +1,8 @@
 // required packages
 import express from 'express';
 import cors from 'cors';
-import spotifyAuthRoutes from './routes/spotifyAuthRoutes';
+import getSongs from './routes/getSongs.js';
+// import spotifyAuthRoutes from './routes/spotifyAuthRoutes.js';
 
 const app = express();
 
@@ -10,7 +11,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/spotify', spotifyAuthRoutes);
+app.use(getSongs);
+// app.use('/api/spotify', spotifyAuthRoutes);
 
 app.get('/', (_req, res) => {
   res.status(200).send('Welcome to the PicMySong server!');
@@ -21,7 +23,7 @@ app.get('*', (_req, res) => {
   res.status(404).send('Not available');
 });
 
-export const start = (port: number | string) => {
+export const start = (port) => {
   if (!port) throw new Error ('No port provided.');
   app.listen(port, () => console.log(`Listening on ${port}`));
 };
